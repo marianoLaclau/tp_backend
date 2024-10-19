@@ -1,5 +1,4 @@
 from django.db import models
-from incripciones.models import Materia 
 
 
 class Estado(models.Model):
@@ -28,7 +27,7 @@ class Nacionalidad(models.Model):
         return self.pais
     
 class Docente(models.Model):
-    materia = models.ForeignKey(Materia,on_delete=models.CASCADE)
+    materia = models.ForeignKey('inscripciones.Materia',on_delete=models.CASCADE)
     nombre = models.CharField(max_length=50,null=False,blank=False)
     apellido = models.CharField(max_length=50,null=False,blank=False)
     email = models.EmailField()
@@ -38,7 +37,7 @@ class Docente(models.Model):
     nacionalidad = models.ForeignKey(Nacionalidad,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nombre + self.apellido
+        return f"{self.apellido},{self.nombre}"
     
     
 class PersonalAdmin(models.Model):
@@ -53,4 +52,4 @@ class PersonalAdmin(models.Model):
     nacionalidad = models.ForeignKey(Nacionalidad,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nombre + self.apellido
+        return f"{self.apellido},{self.nombre}"

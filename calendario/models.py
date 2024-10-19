@@ -1,5 +1,4 @@
 from django.db import models
-from administracion.models import PersonalAdmin , Turno
 
 
 class Evento(models.Model):
@@ -14,8 +13,8 @@ class Calendario(models.Model):
     fecha = models.DateField()
     titulo = models.CharField(max_length=50,null=False,blank=False)
     descripcion = models.CharField(max_length=50,null=False,blank=False)
-    turno = models.ForeignKey(Turno,on_delete=models.CASCADE)
-    autor = models.ForeignKey(PersonalAdmin,on_delete=models.CASCADE)
+    turno = models.ForeignKey('administracion.Turno',on_delete=models.CASCADE)
+    autor = models.ForeignKey('administracion.PersonalAdmin',on_delete=models.CASCADE)
 
     def __str__(self):
             return self.evento.nombre

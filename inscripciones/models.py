@@ -1,5 +1,4 @@
 from django.db import models
-from administracion.models import Genero,Nacionalidad,Turno
 
 
 class Curso(models.Model):
@@ -25,10 +24,10 @@ class PadreTutor(models.Model):
     email = models.EmailField()
     direccion = models.CharField(max_length=50,null=False,blank=False)
     vinculo = models.CharField(max_length=50,null=False,blank=False)
-    nacionalidad = models.ForeignKey(Nacionalidad, on_delete=models.CASCADE)
+    nacionalidad = models.ForeignKey('administracion.Nacionalidad', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nombre
+        return f"{self.apellido},{self.nombre}"
 
 
 class Alumno(models.Model):
@@ -36,14 +35,14 @@ class Alumno(models.Model):
     apellido = models.CharField(max_length=50,null=False,blank=False)
     dni = models.CharField(max_length=20, unique=True)
     padretutor = models.ForeignKey(PadreTutor,on_delete=models.CASCADE)
-    genero = models.ForeignKey(Genero,on_delete=models.CASCADE)
+    genero = models.ForeignKey('administracion.Genero',on_delete=models.CASCADE)
     fecha_nac = models.DateField()
-    nacionalidad = models.ForeignKey(Nacionalidad,on_delete=models.CASCADE)
+    nacionalidad = models.ForeignKey('administracion.Nacionalidad',on_delete=models.CASCADE)
     email = models.EmailField()
     telefono = models.CharField(max_length=20,null=False,blank=False)
     direccion = models.CharField(max_length=50,null=False,blank=False)
     curso = models.ForeignKey(Curso,on_delete=models.CASCADE)
-    turno = models.ForeignKey(Turno,on_delete=models.CASCADE)
+    turno = models.ForeignKey('administracion.Turno',on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.nombre + self.apellido
+        return f"{self.apellido},{self.nombre}"
