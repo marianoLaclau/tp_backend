@@ -1,0 +1,80 @@
+{% extends "base.html" %} 
+{% load widget_tweaks %}
+
+
+{% block title %}Reservas{% endblock %}
+
+
+{% block nav %}
+    {% include 'docentes/base_docentes.html' %}
+{% endblock  %}
+
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="card p-5 shadow-lg">
+        <a href="{% url 'reservas' %}" class="btn btn-sm btn-danger boton-cerrar">X</a>
+        <h2 class="text-center mb-4">Reservar Salas o Equipamiento</h2>
+        <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+
+        <!-- Fila para Docente y Recurso -->
+        <div class="row">
+          <!-- Campo Docente -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.docente.id_for_label }}" class="form-label">Docente</label>
+            {% render_field form.docente class="form-select" %}
+          </div>
+          <!-- Campo Recurso -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.recurso.id_for_label }}" class="form-label">Recurso a Solicitar</label>
+            {% render_field form.recurso class="form-select"  %}
+          </div>
+        </div>
+
+        <!-- Fila para Fecha y Observaciones -->
+        <div class="row">
+          <!-- Campo Fecha -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.fecha.id_for_label }}" class="form-label">Fecha</label>
+            {% render_field form.fecha class="form-control" %}
+          </div>
+          <!-- Campo Observaciones -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.observaciones.id_for_label }}" class="form-label">Observaciones (Inf. adicional.Ej: Horarios.)</label>
+            {% render_field form.observaciones class="form-control" placeholder="Ingrese descripcion adicional.Ej: Horario." %}
+          </div>
+        </div>
+
+
+        <!-- Botón de Envío -->
+        <div class="d-flex justify-content-end mt-4">
+          <button type="submit" class="btn btn-primary btn-lg">
+            <i class="bi bi-save me-2"></i>Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  
+  <script>
+    // Activación de la validación personalizada
+    (function () {
+      'use strict'
+      var forms = document.querySelectorAll('.needs-validation')
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+  </script>
+
+
+{% endblock %}

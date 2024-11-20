@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Cargar Inasistencias{% endblock %}
+
+
+{% block nav %}
+  {% include 'docentes/base_docentes.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+    <br>
+    <center><h1>Cargar Inasistencias</h1></center>
+    <br>
+    <hr>
+    <center><a href="{% url 'nueva_inasistencia' %}" class="btn btn-success">+ Agregar Nuevo Registro</a></center>
+    <hr>
+    <div class="container mt-4">
+        <form method="get" class="row g-3">
+            <div class="col-md-3">
+                <label for="turno" class="form-label">Turno</label>
+                <select id="turno" name="turno" class="form-select">
+                    <option value="" {% if not turno_id %}selected{% endif %}>Todos</option>
+                    {% for turno in turnos %}
+                        <option value="{{ turno.id }}" {% if turno_id == turno.id|stringformat:"s" %}selected{% endif %}>{{ turno }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="col-md-3">
+                <label for="curso" class="form-label">Curso</label>
+                <select id="curso" name="curso" class="form-select">
+                    <option value="" {% if not curso_id %}selected{% endif %}>Todos</option>
+                    {% for curso in cursos %}
+                        <option value="{{ curso.id }}" {% if curso_id == curso.id|stringformat:"s" %}selected{% endif %}>{{ curso.año }} - {{ curso.division }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="materia" class="form-label">Materia</label>
+                <select id="materia" name="materia" class="form-select">
+                    <option value="" {% if not materia_id %}selected{% endif %}>Todos</option>
+                    {% for materia in materias %}
+                        <option value="{{ materia.id }}" {% if materia_id == materia.id|stringformat:"s" %}selected{% endif %}>{{ materia }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="anio" class="form-label">Año Lectivo</label>
+                <select id="anio" name="anio" class="form-select">
+                    <option value="" {% if not anio %}selected{% endif %}>Todos</option>
+                    {% for year in año_lectivo %}
+                        <option value="{{ year }}" {% if anio == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+                <a href="{% url 'inasistencia' %}" class="btn btn-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
+    <hr><br>
+    <center><h4>Nomina de alumnos:</h4></center>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>Alumno</th>
+                <th>Turno</th>
+                <th>Curso</th>
+                <th>Materia</th>
+                <th>Inasistencias</th>
+                <th>Año Lectivo</th>
+                <th>Agregar +1</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asistencia in inasistencias %}
+            <tr>
+                <td>{{ asistencia.alumno }}</td>
+                <td>{{ asistencia.turno }}</td>
+                <td>{{ asistencia.curso.año }} - {{ asistencia.curso.division }}</td>
+                <td>{{ asistencia.materia }}</td>
+                <td>{{ asistencia.inasistencias }}</td>
+                <td>{{ asistencia.año_lectivo }}</td>
+                <td>&nbsp;&nbsp;&nbsp;<a href="{% url 'sumar_inasistencia' pk=asistencia.id %}" class="btn btn-sm btn-danger">+</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+            <td colspan="3">Nada para mostrar. Pruebe aplicando filtros o creando un nuevo registro.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

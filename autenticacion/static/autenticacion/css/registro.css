@@ -1,0 +1,163 @@
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(238, 238, 255, 0.9)), url('{% static "autenticacion/docentes2.png" %}') no-repeat center center/cover; /* Fondo con imagen */
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    color: #333;
+}
+
+/* Contenedor del formulario */
+.container {
+    background: rgba(255, 255, 255, 0.9);  /* Fondo blanco con opacidad */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    z-index: 1;
+}
+
+/* Título principal */
+h1 {
+    color: #4a148c;
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Estilo del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+}
+
+/* Estilo de los párrafos dentro del formulario */
+form p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Estilo de los grupos de campos */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 1em;
+    margin-bottom: 5px;
+    color: #555;
+    text-align: left;
+}
+
+/* Estilo de los campos de entrada (input) */
+form input {
+    padding: 14px;
+    margin-top: 5px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    background-color: #fff;
+    color: #333;
+    width: 100%;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Efecto de enfoque (focus) en los campos de entrada */
+form input:focus {
+    background-color: #f0f8ff;
+    border-color: #9b4d96;
+}
+
+/* Estilo del botón */
+form button {
+    padding: 14px;
+    background: linear-gradient(135deg, #06d243, #551a8b);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+form button:hover {
+    background: linear-gradient(135deg, rgba(85, 26, 139, 1), rgba(153, 50, 204, 1));
+    transform: translateY(-2px);
+}
+
+/* Estilo de la lista de errores */
+ul.error-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 8px;
+    font-size: 1em;
+    margin: 20px 0;
+}
+
+ul.error-list li {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilo de los mensajes de éxito o info */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+ul li {
+    margin: 10px 0;
+    padding: 12px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+ul li.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+ul li.info {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+/* Estilo del enlace a la página de login */
+a {
+    color: #9b4d96;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Ayuda{% endblock %}
+
+
+{% block nav %}
+  
+  {% if 'docentes' in grupos_usuario %}
+    {% include 'docentes/base_docentes.html' %}
+  {% else %}
+    {% include 'administracion/base_admin.html' %}
+  {% endif %}
+  
+{% endblock %}
+
+
+{% block content %}
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Ayuda General</h1>
+        <p class="lead">Todo lo que necesitas saber para aprovechar al máximo el software de gestión del instituto</p>
+    </div>
+    
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h5 mb-0">Propósito del Software</h2>
+        </div>
+        <div class="card-body">
+            <p>Este software está diseñado para facilitar la gestión administrativa y académica del instituto, permitiendo a docentes y administración realizar sus tareas de manera eficiente y centralizada.</p>
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-secondary text-white">
+            <h2 class="h5 mb-0">Recomendaciones para el Uso Correcto</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>Ingresar Información de Forma Precisa:</strong> Mantén los datos actualizados y correctos para evitar problemas en reportes y estadísticas.
+                </li>
+                <li class="list-group-item">
+                    <strong>Mantener el Calendario al Día:</strong> Revisa y actualiza los eventos con regularidad.
+                </li>
+                <li class="list-group-item">
+                    <strong>Exportar Reportes con Cuidado:</strong> Asegúrate de seleccionar correctamente los criterios de exportación.
+                </li>
+                <li class="list-group-item">
+                    <strong>Revisar Cupos y Recursos:</strong> Realiza un seguimiento constante de los cupos y recursos físicos.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+            <h2 class="h5 mb-0">Funcionalidades por Tipo de Usuario</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="h6">Docentes</h3>
+                    <p>Gestión de calificaciones, asistencia, eventos y recordatorios.</p>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="h6">Administración</h3>
+                    <p>Control del calendario, inscripciones, generación de reportes y comunicación oficial con docentes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h2 class="h5 mb-0">Contacto para Soporte Técnico</h2>
+        </div>
+        <div class="card-body">
+            <p>Para cualquier duda o problema técnico, puedes comunicarte con el equipo de soporte:</p>
+            <ul class="list-unstyled">
+                <li><strong>Correo Electrónico:</strong> <a href="mailto:soporte@instituto.edu">soporte@instituto.edu</a></li>
+                <li><strong>Teléfono:</strong> (123) 456-7890</li>
+                <li><strong>Horario de Atención:</strong> Lunes a Viernes, de 9:00 a 18:00</li>
+            </ul>
+            <div class="alert alert-warning mt-3">
+                <strong>Nota:</strong> Al comunicarte con soporte, proporciona detalles específicos sobre el problema y, si es posible, una captura de pantalla. Esto facilitará una rápida resolución del problema.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

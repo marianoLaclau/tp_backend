@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Configuracion{% endblock %}
+
+
+{% block nav %}
+  
+  {% if 'docentes' in grupos_usuario %}
+    {% include 'docentes/base_docentes.html' %}
+  {% else %}
+    {% include 'administracion/base_admin.html' %}
+  {% endif %}
+  
+{% endblock %}
+
+
+{% block content %}
+<h1>Configuracion</h1>
+{% endblock %}

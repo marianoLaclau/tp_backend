@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Alumno {% endblock %}
+
+
+{% block nav %}
+    {% include 'administracion/base_admin.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="h4">Ver Datos de: <strong>{{ object.nombre }} , {{ object.apellido }}</strong></h1>
+            </div>
+            <div class="card-body">
+                <p><strong>Nombre:</strong> {{ object.nombre }}</p>
+                <p><strong>Apellido:</strong> {{ object.apellido }}</p>
+                <p><strong>DNI:</strong> {{ object.dni }}</p>
+                <p><strong>Tutor:</strong> {{ object.padretutor_fk|default:"No asignado" }}</p>
+                <p><strong>Género:</strong> {{ object.genero }}</p>
+                <p><strong>Fecha Nacimiento:</strong> {{ object.fecha_nac }}</p>
+                <p><strong>Nacionalidad:</strong> {{ object.nacionalidad }}</p>
+                <p><strong>Email:</strong> {{ object.email }}</p>
+                <p><strong>Tel:</strong> {{ object.telefono }}</p>
+                <p><strong>Dirección:</strong> {{ object.direccion }}</p>
+                <p><strong>Curso:</strong> {{ object.curso }}</p>
+                <p><strong>Turno:</strong> {{ object.turno }}</p>
+            </div>
+            <div class="card-footer text-end">
+                <a href="{% url 'ver_calificaciones' pk=object.id %}" class="btn btn-secondary btn-sm">Calificaciones</a>
+                <a href="{% url 'ver_inasistencias' pk=object.id %}" class="btn btn-secondary btn-sm">Inasistencias</a>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalexport2">
+                    Exportar Legajo
+                </button>
+            </div>
+        </div>
+        <br>
+        <a href="{% url 'lista_alumnos' %}" class="btn btn-warning" >Volver</a>
+        <br>
+    </div>
+   
+{% endblock %}

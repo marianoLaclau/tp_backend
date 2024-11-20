@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block title %}Calificaciones{% endblock %}
+
+
+{% block nav %}
+    {% include 'docentes/base_docentes.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card p-5 shadow-lg">
+        <a href="{% url 'calificaciones' %}" class="btn btn-sm btn-danger boton-cerrar">X</a>
+        <h2 class="text-center mb-4">Registrar Calificacion</h2>
+        <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+  
+        <!-- Fila para Alumno y Curso -->
+        <div class="row">
+          <!-- Campo Alumno -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.alumno.id_for_label }}" class="form-label">Alumno</label>
+            {% render_field form.alumno class="form-select"  %}
+          </div>
+          <!-- Campo Curso -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.curso.id_for_label }}" class="form-label">Curso</label>
+            {% render_field form.curso class="form-select"  %}
+          </div>
+        </div>
+  
+        <!-- Fila para Materia y Año Lecivo -->
+        <div class="row">
+          <!-- Campo Materia -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.materia.id_for_label }}" class="form-label">Materia</label>
+            {% render_field form.materia class="form-select"  %}
+          </div>
+          <!-- Campo Año Lectivo -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.año_lectivo.id_for_label }}" class="form-label">Año Lectivo</label>
+            {% render_field form.año_lectivo class="form-control"  %}
+          </div>
+        </div>
+  
+        <!-- Fila para Trimestres -->
+        <div class="row">
+          <!-- Campo Tri1 -->
+          <div class="col-md-4 mb-3">
+            <label for="{{ form.trimestre_1.id_for_label }}" class="form-label">Trimestre 1</label>
+            {% render_field form.trimestre_1 class="form-control" %}
+          </div>
+          <!-- Campo Tri2 -->
+          <div class="col-md-4 mb-3">
+            <label for="{{ form.trimestre_2.id_for_label }}" class="form-label">Trimestre 2</label>
+            {% render_field form.trimestre_2 class="form-control"  %}
+          </div>
+         <!-- Campo tri3 -->
+        <div class="col-md-4 mb-3">
+          <label for="{{ form.trimestre_3.id_for_label }}" class="form-label">Trimestre 3</label>
+          {% render_field form.trimestre_3 class="form-control" %}
+        </div>
+      </div>
+  
+        <!-- Fila para Nota Final y Estado -->
+        <div class="row">
+          <!-- Campo Nota Final -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.nota_final.id_for_label }}" class="form-label">Nota Final</label>
+            {% render_field form.nota_final class="form-control"  %}
+          </div>
+          <!-- Campo Estado -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.estado.id_for_label }}" class="form-label">Estado</label>
+            {% render_field form.estado class="form-select" %}
+          </div>
+        </div>
+  
+        <!-- Botón de Envío -->
+        <div class="d-flex justify-content-end mt-4">
+          <button type="submit" class="btn btn-primary btn-lg">
+            <i class="bi bi-save me-2"></i>Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  
+  <!-- Script de validación  -->
+  <script>
+    // Activación de la validación personalizada
+    (function () {
+      'use strict'
+      var forms = document.querySelectorAll('.needs-validation')
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+  </script>
+  
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Administrar Salas y Equipos Reservados{% endblock %}
+
+
+{% block nav %}
+  {% include 'administracion/base_admin.html' %}
+{% endblock %}
+
+
+{% block content %}
+<center><br><h2>Lista de Reservas</h2><br></center>
+<table>
+  <tr>
+    <th>Docente</th>
+    <th>Item</th>
+    <th>Fecha</th>
+    <th>Cantidad</th>
+    <th>Disponible</th>
+    <th>Acción</th>  
+  </tr>
+  {% for reserva in reservas %}
+  <tr>
+    <td>{{ reserva.docente }}</td>
+    <td>{{ reserva.recurso }}</td>
+    <td>{{ reserva.fecha }}</td>
+    <td>{{ reserva.recurso.cantidad }}</td>
+    <td>
+      {% if reserva.recurso.disponibilidad %}
+          <i class="bi bi-check-circle text-success"></i> <!-- Icono de tic verde -->
+      {% else %}
+          <i class="bi bi-x-circle text-danger"></i> <!-- Icono de cruz roja -->
+      {% endif %}
+  </td>
+    <td>
+      <!-- Boton para marcar como devuelto -->
+      <form method="post" action="{% url 'marcar_devuelto' reserva.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success btn-sm">Marcar como devuelto</button>
+      </form>
+    </td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td colspan="6">No hay reservas.</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

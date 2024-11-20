@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load custom_filter %}
+
+{% block title %}Calendario{% endblock %}
+
+{% block nav %}
+    {% include 'docentes/base_docentes.html' %}
+{% endblock %}
+
+{% block content %}
+    <br>
+    <center><h1>Calendario de {{ mes }} {{ año }}</h1></center>
+    <br>
+
+    <div class="d-flex justify-content-around align-items-center mb-4">
+        <a href="?month={{ mes_actual|add:'-1' }}&year={{ año }}" class="btn btn-primary">
+            Mes Anterior
+        </a>
+        <a href="?month={{ mes_actual|add:'1' }}&year={{ año }}" class="btn btn-primary">
+            Mes Siguiente
+        </a>
+    </div>
+
+    <table class="mes">
+        <thead>
+            <tr>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+                <th>Sábado</th>
+                <th>Domingo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for semana in dias_mes %}
+            <tr class="semana">
+                {% for dia in semana %}
+                <td class="dia">
+                    {% if dia != 0 %}
+                        <div>{{ dia }}</div>
+
+                        <!-- Mostrar eventos si hay en este día -->
+                        {% with eventos=eventos_por_dia|get_item:dia %}
+                            {% if eventos %}<br>
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal{{ dia }}">
+                                    Ver eventos
+                                </button>
+                            {% endif %}
+                        {% endwith %}
+
+                        <!-- Modal para mostrar los eventos de este día -->
+                        {% with eventos=eventos_por_dia|get_item:dia %}
+                            {% if eventos %}
+                            <div class="modal fade" id="modal{{ dia }}" tabindex="-1" aria-labelledby="modalLabel{{ dia }}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-white">
+                                            <h5 class="modal-title" id="modalLabel{{ dia }}">Eventos del día {{ dia }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {% if eventos %}
+                                                <div class="list-group">
+                                                    {% for evento in eventos %}
+                                                    <div class="list-group-item">
+                                                        <h6 class="mb-1 text-primary">{{ evento.titulo }}</h6>
+                                                        <p class="mb-0"><strong>Descripción:</strong> {{ evento.descripcion }}</p>
+                                                        <p class="text-muted"><small><strong>Turno:</strong> {{ evento.turno }} | <strong>Fecha:</strong> {{ evento.fecha }}</small></p>
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                <p class="text-center text-muted">No hay eventos registrados para este día.</p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br><br><br>
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Ver Docente {% endblock %}
+
+
+{% block nav %}
+    {% include 'administracion/base_admin.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+    <center><br><h1>Listado Docentes</h1></center>
+    <hr>
+    <center><a href="{% url 'agregar_docente' %}" class="btn btn-success">+ Inscribir Docente</a></center>
+    <hr>
+    <div class="container mt-4">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <label for="buscar" class="form-label">Buscar por DNI</label>
+                <input type="text" id="buscar" name="buscar" value="{{ buscar }}" placeholder="Ingrese DNI a buscar..." class="form-control">
+            </div>
+
+            <div class="col-md-4">
+                <label for="turno" class="form-label">Turno</label>
+                <select id="turno" name="turno" class="form-select">
+                    <option value="" {% if not turno_id %}selected{% endif %}>Todos</option>
+                    {% for turno in turnos %}
+                        <option value="{{ turno.id }}" {% if turno_id == turno.id|stringformat:"s" %}selected{% endif %}>{{ turno.turno }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="curso" class="form-label">Curso</label>
+                <select id="curso" name="curso" class="form-select">
+                    <option value="" {% if not curso_id %}selected{% endif %}>Todos</option>
+                    {% for curso in cursos %}
+                        <option value="{{ curso.id }}" {% if curso_id == curso.id|stringformat:"s" %}selected{% endif %}>{{ curso.año }} - {{ curso.division }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">Filtrar</button>
+                <a href="{% url 'lista_docente' %}" class="btn btn-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Genero</th>
+                <th>Nacionalidad</th>
+                <th>Materia</th>
+                <th>Curso</th>
+                <th>Turno</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for objeto in docentes %}
+                <tr>
+                    <td>{{ objeto.id }}</td>
+                    <td>{{ objeto.nombre }}</td>
+                    <td>{{ objeto.apellido }}</td>
+                    <td>{{ objeto.dni }}</td>
+                    <td>{{ objeto.email }}</td>
+                    <td>{{ objeto.telefono }}</td>
+                    <td>{{ objeto.genero }}</td>
+                    <td>{{ objeto.nacionalidad }}</td>
+                    <td>{{ objeto.materia }}</td>
+                    <td>{{ objeto.curso }}</td>
+                    <td>{{ objeto.turno }}</td>
+                    <td>&nbsp;&nbsp;&nbsp;<a href="{% url 'editar_docente' pk=objeto.id %}" class="btn btn-sm btn-primary" >Edit</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

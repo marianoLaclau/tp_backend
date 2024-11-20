@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Cargar Calificaciones{% endblock %}
+
+
+{% block nav %}
+    {% include 'docentes/base_docentes.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+  <center><br><h1>Cargar Calificaciones</h1><br></center>
+  <hr>
+  <center><a href="{% url 'nueva_calificacion' %}" class="btn btn-primary">+ Agregar Nuevo Registro</a></center>
+  <hr>
+  <div class="container mt-4">
+    <form method="get" class="row g-3">
+        <div class="col-md-3">
+            <label for="materia" class="form-label">Materia</label>
+            <select id="materia" name="materia" class="form-select">
+                <option value="" {% if not materia_id %}selected{% endif %}>Todas</option>
+                {% for materia in materias %}
+                    <option value="{{ materia.id }}" {% if materia_id == materia.id|stringformat:"s" %}selected{% endif %}>{{ materia.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="col-md-3">
+            <label for="curso" class="form-label">Curso</label>
+            <select id="curso" name="curso" class="form-select">
+                <option value="" {% if not curso_id %}selected{% endif %}>Todos</option>
+                {% for curso in cursos %}
+                    <option value="{{ curso.id }}" {% if curso_id == curso.id|stringformat:"s" %}selected{% endif %}>{{ curso }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="col-md-3">
+            <label for="estado" class="form-label">Estado</label>
+            <select id="estado" name="estado" class="form-select">
+                <option value="" {% if not estado_id %}selected{% endif %}>Todos</option>
+                {% for estado in estados %}
+                    <option value="{{ estado.id }}" {% if estado_id == estado.id|stringformat:"s" %}selected{% endif %}>{{ estado.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+          <label for="año_lectivo" class="form-label">Año</label>
+          <select id="año_lectivo" name="año_lectivo" class="form-select">
+              <option value="" {% if not año_lectivo %}selected{% endif %}>Todos</option>
+              {% for year in años_lectivos %}
+                  <option value="{{ year }}" {% if año_lectivo == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+              {% endfor %}
+          </select>
+        </div>
+      
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <a href="{% url 'calificaciones' %}" class="btn btn-secondary">Reset</a>
+        </div>
+    </form>
+  <hr>
+  </div>
+
+ 
+  <br>  
+  <center><h4>Nomina de alumnos:</h4></center><br>
+  <table>
+      <tr>
+        <th>Alumno</th>
+        <th>Curso</th>
+        <th>Materia</th>
+        <th>1 Tri</th>
+        <th>2 Tri</th>
+        <th>3 Tri</th>
+        <th>Nota final</th>
+        <th>Estado</th>
+        <th>Año</th>
+        <th>Accion</th>
+      </tr>
+      {% for calificacion in calificaciones %}
+        <tr>
+          <td>{{ calificacion.alumno }}</td>
+          <td>{{ calificacion.curso }}</td>
+          <td>{{ calificacion.materia }}</td>
+          <td>{{ calificacion.trimestre_1 }}</td>
+          <td>{{ calificacion.trimestre_2 }}</td>
+          <td>{{ calificacion.trimestre_3 }}</td>
+          <td>{{ calificacion.nota_final }}</td>
+          <td>{{ calificacion.estado }}</td>
+          <td>{{ calificacion.año_lectivo }}</td>
+          <td><a href="{% url 'registrar_nota' pk=calificacion.id %}" class="btn btn-sm btn-primary" >Edit</a></td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3">Nada para mostrar. Pruebe aplicando filtros o creando un nuevo registro.</td>
+        </tr>
+      {% endfor %}
+
+    </table>
+
+{% endblock %}

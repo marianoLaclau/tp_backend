@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'autenticacion/css/registro.css' %}">
+    <title>Registro</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Regístrate</h1>
+        <form method="post">
+            {% csrf_token %}
+            <!-- Renderizar los campos individualmente -->
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Nombre de Usuario</label>
+                {{ form.username }}  <!-- Aquí se renderiza el campo del nombre de usuario -->
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Correo Electrónico</label>
+                {{ form.email }}  <!-- Campo de correo -->
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.dni.id_for_label }}">DNI</label>
+                {{ form.dni }}  <!-- Campo de DNI -->
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.contraseña.id_for_label }}">Contraseña</label>
+                {{ form.contraseña }}  <!-- Campo de Contraseña -->
+            </div>
+
+            <button type="submit">Registrarme</button>
+        </form>
+
+        <!-- Comprobamos si hay mensajes -->
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <!-- Comprobamos si hay errores en el formulario -->
+        {% if form.errors %}
+        <ul class="error-list">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}">Iniciar sesión</a></p>
+    </div>
+</body>
+</html>
+

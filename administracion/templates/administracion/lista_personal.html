@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Personal {% endblock %}
+
+
+{% block nav %}
+    {% include 'administracion/base_admin.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+    <center><br><h1>Listado Personal Administrativo</h1></center>
+    <hr>
+    <center><a href="{% url 'crear_personal' %}" class="btn btn-success">+ Agregar Personal Administrativo</a></center>
+    <hr>
+    <div class="container mt-4">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <label for="buscar" class="form-label">Buscar por DNI</label>
+                <input type="text" id="buscar" name="buscar" value="{{ buscar }}" placeholder="Ingrese DNI a buscar..." class="form-control">
+            </div>
+
+            <div class="col-md-4">
+                <label for="apellido" class="form-label">Buscar por apellido</label>
+                <input type="text" id="apellido" name="apellido" value="{{ apellido }}" placeholder="Ingrese apellido del personal..." class="form-control">
+            </div>
+            
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">Filtrar</button>
+                <a href="{% url 'lista_personal' %}" class="btn btn-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Direccion</th>
+                <th>Turno</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for personal in personales %}
+                <tr>
+                    <td>{{ personal.nombre }}</td>
+                    <td>{{ personal.apellido }}</td>
+                    <td>{{ personal.dni }}</td>
+                    <td>{{ personal.telefono }}</td>
+                    <td>{{ personal.email }}</td>
+                    <td>{{ personal.direccion }}</td>
+                    <td>{{ personal.turno }}</td>
+                    <td>&nbsp;&nbsp;&nbsp;<a href="{% url 'editar_personal' pk=personal.id %}" class="btn btn-sm btn-primary">Edit</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

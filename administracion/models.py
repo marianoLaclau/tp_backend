@@ -1,12 +1,10 @@
 from django.db import models
 
-
 class Estado(models.Model):
     nombre = models.CharField(max_length=25,null=False,blank=False)
 
     def __str__(self):
         return self.nombre
-    
     
 class Genero(models.Model):
     tipo = models.CharField(max_length=50,null=False,blank=False)
@@ -26,6 +24,7 @@ class Nacionalidad(models.Model):
     def __str__(self):
         return self.pais
     
+    
 class Docente(models.Model):
     materia = models.ForeignKey('inscripciones.Materia',on_delete=models.CASCADE)
     nombre = models.CharField(max_length=50,null=False,blank=False)
@@ -35,6 +34,9 @@ class Docente(models.Model):
     genero = models.ForeignKey(Genero,on_delete=models.CASCADE)
     dni = models.CharField(max_length=20, unique=True)
     nacionalidad = models.ForeignKey(Nacionalidad,on_delete=models.CASCADE)
+    telefono = models.CharField(max_length=80)
+    turno = models.ForeignKey(Turno,on_delete=models.CASCADE)
+    curso = models.ForeignKey('inscripciones.Curso',on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.apellido},{self.nombre}"

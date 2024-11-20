@@ -1,0 +1,87 @@
+
+    <center><h1>Lista de Eventos</h1></center>
+
+    <div class="container mt-4">
+            <hr>
+            <form method="get" class="row g-3">
+                <div class="col-md-3">
+                    <label for="año_lectivo" class="form-label">Año Lectivo</label>
+                    <select id="año_lectivo" name="año_lectivo" class="form-select">
+                        <option value="">Todos</option>
+                        {% for año in años_lectivos %}
+                            <option value="{{ año }}" {% if año == año_lectivo_seleccionado %}selected{% endif %}>{{ año }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            
+                <div class="col-md-3">
+                    <label for="orden" class="form-label">Ordenar por Fecha</label>
+                    <select id="orden" name="orden" class="form-select">
+                        <option value="asc" {% if orden == 'asc' %}selected{% endif %}>Ascendente</option>
+                        <option value="desc" {% if orden == 'desc' %}selected{% endif %}>Descendente</option>
+                    </select>
+                </div>
+                
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                    <a href="{% url 'crear_evento' %}" class="btn btn-secondary">Reset</a>
+                </div>
+            </form>
+            <hr>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Descripcion</th>
+                        <th>Turno</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for evento in eventos %}
+                    <tr>
+                        <td>{{ evento.titulo }}</td>
+                        <td>{{ evento.descripcion }}</td>
+                        <td>{{ evento.turno }}</td>
+                        <td>{{ evento.fecha }}</td>
+                        <td>
+                            <!-- Boton para abrir el modal -->
+                            <button type="button" 
+                                    class="btn btn-sm btn-danger" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#deleteModal" 
+                                    data-id="{{ evento.id }}">
+                                X
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No hay eventos registrados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% include 'administracion/modal_eliminar_evento.html' %}
+    </div>
+
+    <script>
+        // Escucha el evento de apertura del modal
+        const deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            // Boton que abrio el modal
+            const button = event.relatedTarget;
+    
+            // Extrae el ID del atributo data-id
+            const registroId = button.getAttribute('data-id');
+    
+            // Actualiza la URL del boton de confirmacion
+            const confirmButton = deleteModal.querySelector('#confirmDeleteButton');
+            confirmButton.href = `/eliminar_evento/${registroId}/`;
+        });
+    </script>
+    
+
+    
