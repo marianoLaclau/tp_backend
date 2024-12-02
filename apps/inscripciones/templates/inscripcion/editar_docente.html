@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block title %} Editar Docente {% endblock %}
+
+
+{% block nav %}
+    {% include 'administracion/base_admin.html' %}
+{% endblock %}
+
+
+{% block content %}
+    
+  <div class="container mt-5">
+    <div class="card p-5 shadow-lg">
+        <a href="{% url 'lista_docente' %}" class="btn btn-sm btn-danger boton-cerrar">X</a>
+        <h2 class="text-center mb-4">Editar Docente</h2>
+        <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+
+        <!-- Fila para Nombre y Apellido -->
+        <div class="row">
+          <!-- Campo Nombre -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre</label>
+            {% render_field form.nombre class="form-control" placeholder="Ingresa nombre" %}
+          </div>
+          <!-- Campo Apellido -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.apellido.id_for_label }}" class="form-label">Apellido</label>
+            {% render_field form.apellido class="form-control" placeholder="Ingresa apellido" %}
+          </div>
+        </div>
+
+        <!-- Fila para DNI y Direccion -->
+        <div class="row">
+          <!-- Campo DNI -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.dni.id_for_label }}" class="form-label">DNI</label>
+            {% render_field form.dni class="form-control" placeholder="Ingresa DNI" %}
+          </div>
+          <!-- Campo Direccion -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.direccion.id_for_label }}" class="form-label">Direccion</label>
+            {% render_field form.direccion class="form-control" placeholder="Ingrese dirección" %}
+          </div>
+        </div>
+
+        <!-- Fila para Género y Nacionalidad -->
+        <div class="row">
+          <!-- Campo Género -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.genero.id_for_label }}" class="form-label">Género</label>
+            {% render_field form.genero class="form-select" %}
+          </div>
+          <!-- Campo Nacionalidad -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.nacionalidad.id_for_label }}" class="form-label">Nacionalidad</label>
+            {% render_field form.nacionalidad class="form-select" %}
+          </div>
+        </div>
+
+        <!-- Fila para Email y Teléfono -->
+        <div class="row">
+          <!-- Campo Email -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.email.id_for_label }}" class="form-label">Correo Electrónico</label>
+            {% render_field form.email class="form-control" placeholder="nombre@ejemplo.com" %}
+          </div>
+          <!-- Campo Teléfono -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.telefono.id_for_label }}" class="form-label">Teléfono</label>
+            {% render_field form.telefono class="form-control" placeholder="Ingresa número de teléfono" %}
+          </div>
+        </div>
+
+        <!-- Campo Materia -->
+        <div class="col-md-6 mb-3">
+          <label for="{{ form.materia.id_for_label }}" class="form-label">Materia</label>
+          {% render_field form.materia class="form-select" placeholder="Ingresa tu dirección" %}
+        </div>
+
+        <!-- Fila para Curso y Turno -->
+        <div class="row">
+          <!-- Campo Curso -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.curso.id_for_label }}" class="form-label">Curso</label>
+            {% render_field form.curso class="form-select" %}
+          </div>
+          <!-- Campo Turno -->
+          <div class="col-md-6 mb-3">
+            <label for="{{ form.turno.id_for_label }}" class="form-label">Turno</label>
+            {% render_field form.turno class="form-select" %}
+          </div>
+        </div>
+
+        <!-- Botón de Envío -->
+        <div class="d-flex justify-content-end mt-4">
+          <button type="submit" class="btn btn-primary btn-lg">
+            <i class="bi bi-save me-2"></i>Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  
+  <script>
+    // Activación de la validación personalizada
+    (function () {
+      'use strict'
+      var forms = document.querySelectorAll('.needs-validation')
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+  </script>
+
+{% endblock %}
+
+

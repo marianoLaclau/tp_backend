@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Ver Alumno {% endblock %}
+
+
+{% block nav %}
+    {% include 'administracion/base_admin.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+    <center><br><h1>Gestion de Alumnos</h1></center>
+    <hr>
+    <center><a href="{% url 'agregar' %}" class="btn btn-success">+ Inscribir Alumno</a></center>
+    <hr>
+    <div class="container mt-4">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <label for="buscar" class="form-label">Buscar por DNI</label>
+                <input type="text" id="buscar" name="buscar" value="{{ buscar }}" placeholder="Ingrese DNI a buscar..." class="form-control">
+            </div>
+
+            <div class="col-md-4">
+                <label for="turno" class="form-label">Turno</label>
+                <select id="turno" name="turno" class="form-select">
+                    <option value="" {% if not turno_id %}selected{% endif %}>Todos</option>
+                    {% for turno in turnos %}
+                        <option value="{{ turno.id }}" {% if turno_id == turno.id|stringformat:"s" %}selected{% endif %}>{{ turno.turno }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="curso" class="form-label">Curso</label>
+                <select id="curso" name="curso" class="form-select">
+                    <option value="" {% if not curso_id %}selected{% endif %}>Todos</option>
+                    {% for curso in cursos %}
+                        <option value="{{ curso.id }}" {% if curso_id == curso.id|stringformat:"s" %}selected{% endif %}>{{ curso.año }} - {{ curso.division }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">Filtrar</button>
+                <a href="{% url 'lista_alumnos' %}" class="btn btn-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Genero</th>
+                <th>Curso</th>
+                <th>Turno</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for objeto in alumnos %}
+                <tr>
+                    <td>{{ objeto.id }}</td>
+                    <td>{{ objeto.nombre }}</td>
+                    <td>{{ objeto.apellido }}</td>
+                    <td>{{ objeto.dni }}</td>
+                    <td>{{ objeto.genero }}</td>
+                    <td>{{ objeto.curso }}</td>
+                    <td>{{ objeto.turno }}</td>
+                    <td><a href="{% url 'ver_alumno' pk=objeto.id %}" class="btn btn-success btn-sm">Ver</a> 
+                        <a href="{% url 'editar_alumno' pk=objeto.id %}" class="btn btn-success btn-sm">Edit</a>
+                    </td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+  
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; Primera</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                </li>
+            {% endif %}
+        
+            <li class="page-item disabled">
+                <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            </li>
+        
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <br><br>
+  
+{% endblock %}

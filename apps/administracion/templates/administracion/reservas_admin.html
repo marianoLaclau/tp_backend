@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Administrar Salas y Equipos Reservados{% endblock %}
+
+
+{% block nav %}
+  {% include 'administracion/base_admin.html' %}
+{% endblock %}
+
+
+{% block content %}
+<center><br><h2>Gestion de Reservas</h2><br></center>
+<table>
+  <tr>
+    <th>Docente</th>
+    <th>Item</th>
+    <th>Fecha</th>
+    <th>Cantidad</th>
+    <th>Disponible</th>
+    <th>Acción</th>  
+  </tr>
+  {% for reserva in reservas %}
+  <tr>
+    <td>{{ reserva.docente }}</td>
+    <td>{{ reserva.recurso }}</td>
+    <td>{{ reserva.fecha }}</td>
+    <td>{{ reserva.recurso.cantidad }}</td>
+    <td>
+      {% if reserva.recurso.disponibilidad %}
+          <i class="bi bi-check-circle text-success"></i> <!-- Icono de tic verde -->
+      {% else %}
+          <i class="bi bi-x-circle text-danger"></i> <!-- Icono de cruz roja -->
+      {% endif %}
+  </td>
+    <td>
+      <!-- Boton para marcar como devuelto -->
+      <form method="post" action="{% url 'marcar_devuelto' reserva.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success btn-sm">Marcar como devuelto</button>
+      </form>
+    </td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td colspan="6">No hay reservas.</td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+
+<nav>
+  <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+          <li class="page-item">
+              <a class="page-link" href="?page=1">&laquo; Primera</a>
+          </li>
+          <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+          </li>
+      {% endif %}
+  
+      <li class="page-item disabled">
+          <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+      </li>
+  
+      {% if page_obj.has_next %}
+          <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+          </li>
+          <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+          </li>
+      {% endif %}
+  </ul>
+</nav>
+<br><br>
+
+
+{% endblock %}

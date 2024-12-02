@@ -4,12 +4,12 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('autenticacion.urls')),
-    path('', include('home.urls')),
-    path('',include('inscripciones.urls')),
-    path('',include('calendario.urls')),
-    path('',include('docentes.urls')),
-    path('',include('administracion.urls')),
-    path('',include('alumno.urls')),
-    path('',include('recursos.urls')),
+    path('',include('apps.autenticacion.urls')),
+    path('', include('apps.home.urls')),
+    path('',include('apps.inscripciones.urls')),
+    path('',include('apps.calendario.urls')),
+    path('',include('apps.docentes.urls')),
+    path('',include('apps.administracion.urls')),
+    path('',include('apps.alumno.urls')),
+    path('',include('apps.recursos.urls')),
 ]

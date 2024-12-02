@@ -1,0 +1,79 @@
+
+
+.alerta-mensaje{
+    width: 50%;
+    position: fixed;
+    z-index: 50 !important;
+}
+
+
+
+.filters {
+    width: 100%;
+    margin-left: 5%;
+}
+
+.filters > form {
+    margin-right: 3%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.filters > form > p {
+    margin-right: 2%;
+}
+
+.filters > form > p > input {
+    margin-top: 13%;
+}
+
+.filters > form > select{
+    width: 45%;
+}
+
+
+.filters > form > button{
+    height: fit-content;
+    margin-top: 15%;
+
+}
+    
+
+
+.container-form {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 3%;
+}
+
+
+
+.card {
+    border: none;
+    border-radius: 1rem;
+    margin: 3%;
+  }
+  .form-control:focus {
+    box-shadow: none;
+  }
+  .btn-primary {
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+  .btn-primary:hover {
+    background-color: #005cbf;
+    border-color: #0056b3;
+  }
+
+
+  .boton-cerrar{
+    width: 3%;
+    position: absolute;
+    right: 3%;
+    top: 4%;
+  }
+

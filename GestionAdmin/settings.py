@@ -19,27 +19,33 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-DJANGO_APPS = []
-LOCAL_APPS = []
-
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'administracion',
-    'alumno',
-    'autenticacion',
-    'calendario',
-    'docentes',
-    'home',
-    'inscripciones',
-    'recursos',
-    'widget_tweaks',
-
 ]
+
+THIRD_PARTY_APPS = [
+    'widget_tweaks',  # Aplicacin de terceros
+]
+
+LOCAL_APPS = [
+    'apps.administracion',
+    'apps.alumno',
+    'apps.autenticacion',
+    'apps.calendario',
+    'apps.docentes',
+    'apps.home',
+    'apps.inscripciones',
+    'apps.recursos',
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Tutores {% endblock %}
+
+
+{% block nav %}
+    {% include 'administracion/base_admin.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+    <center><br><h1>Gestion de Tutores</h1></center>
+    <hr>
+    <center><a href="{% url 'agregar_tutor' %}" class="btn btn-success">+ Agregar Tutor</a></center>
+    <hr>
+    <div class="container mt-4">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <label for="buscar" class="form-label">Buscar por DNI tutor</label>
+                <input type="text" id="buscar" name="buscar" value="{{ buscar }}" placeholder="Ingrese DNI a buscar..." class="form-control">
+            </div>
+
+            <div class="col-md-4">
+                <label for="apellido" class="form-label">Buscar por apellido alumno</label>
+                <input type="text" id="apellido" name="apellido" value="{{ apellido }}" placeholder="Ingrese apellido del alumno..." class="form-control">
+            </div>
+            
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">Filtrar</button>
+                <a href="{% url 'tutor' %}" class="btn btn-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Telefono</th>
+                <th>Telefono Secundario</th>
+                <th>Email</th>
+                <th>Alumno</th>
+                <th>Vinculo</th>
+                <th>Direccion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for tutor in tutores %}
+                <tr>
+                    <td>{{ tutor.nombre }}</td>
+                    <td>{{ tutor.apellido }}</td>
+                    <td>{{ tutor.dni }}</td>
+                    <td>{{ tutor.telefono }}</td>
+                    <td>{{ tutor.telefono_secundario }}</td>
+                    <td>{{ tutor.email }}</td>
+                    <td>{{ tutor.alumno_fk }}</td>
+                    <td>{{ tutor.vinculo }}</td>
+                    <td>{{ tutor.direccion }}</td>
+                    <td>&nbsp;&nbsp;&nbsp;<a href="{% url 'editar_tutor' pk=tutor.id %}" class="btn btn-sm btn-primary">Edit</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; Primera</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                </li>
+            {% endif %}
+        
+            <li class="page-item disabled">
+                <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            </li>
+        
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <br><br>
+
+{% endblock %}
