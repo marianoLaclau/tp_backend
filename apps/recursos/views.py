@@ -18,7 +18,7 @@ class RegistrarResreva(LoginRequiredMixin,CreateView):
 
         # verificar si el recurso esta disponible
         if not recurso.disponibilidad:
-            messages.error(self.request, f"El recurso {recurso.nombre} no está disponible en este momento.")
+            messages.error(self.request, f"El recurso {recurso.nombre} no está disponible en este momento. Contacte a la administracion para mas informacion.")
             return redirect('nueva_reserva')  # redirige al formulario
 
         messages.success(self.request, f"El recurso {recurso.nombre} se ha reservado correctamente.")
@@ -30,6 +30,7 @@ class ReservasView(LoginRequiredMixin, ListView):
     model = Reserva
     template_name = 'recursos/reservas.html'
     context_object_name = 'reservas'
+    paginate_by = 10
 
     def get_queryset(self):
         # ordenar las reservas por fecha en orden descendente (+ reciente primero)

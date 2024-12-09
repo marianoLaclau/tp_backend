@@ -58,8 +58,8 @@
         </div>
       
         <div class="col-12">
-            <button type="submit" class="btn btn-primary">Filtrar</button>
-            <a href="{% url 'calificaciones' %}" class="btn btn-secondary">Reset</a>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-funnel"></i></button>
+            <a href="{% url 'calificaciones' %}" class="btn btn-secondary"><i class="bi bi-arrow-counterclockwise"></i></a>
         </div>
     </form>
   <hr>
@@ -92,7 +92,10 @@
           <td>{{ calificacion.nota_final }}</td>
           <td>{{ calificacion.estado }}</td>
           <td>{{ calificacion.año_lectivo }}</td>
-          <td><a href="{% url 'registrar_nota' pk=calificacion.id %}" class="btn btn-sm btn-primary" >Edit</a></td>
+          <td>&nbsp;&nbsp;<a href="{% url 'registrar_nota' pk=calificacion.pk %}?{{ request.GET.urlencode }}" class="btn btn-sm btn-primary">
+                  <i class="bi bi-pencil"></i>
+              </a>
+          </td>
         </tr>
       {% empty %}
         <tr>

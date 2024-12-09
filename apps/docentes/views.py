@@ -98,15 +98,30 @@ class RegistrarCalificacion(LoginRequiredMixin,CreateView):
         return super().form_valid(form)
 
     
-class EditarCalificacionView(LoginRequiredMixin,UpdateView):
+class EditarCalificacionView(LoginRequiredMixin, UpdateView):
     model = Calificaciones
     form_class = CalificacionForm
     template_name = 'docentes/editar_calificacion.html'
-    success_url = reverse_lazy('calificaciones')
 
     def form_valid(self, form):
-        messages.success(self.request,'Se agrego la calificacion correctamente.')
+        messages.success(self.request, 'Se agregó la calificación correctamente.')
         return super().form_valid(form)
+
+    def get_success_url(self):
+        # Obtener los filtros de la URL
+        filtros = self.request.GET.urlencode()
+        # Generar la URL de redirección con los filtros
+        base_url = reverse('calificaciones')
+        if filtros:
+            return f"{base_url}?{filtros}"
+        else:
+            return base_url
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Pasar los filtros al contexto
+        context['filtros'] = self.request.GET.urlencode()
+        return context
 
 
 class CalificacionesView(LoginRequiredMixin, ListView):

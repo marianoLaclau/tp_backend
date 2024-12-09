@@ -18,7 +18,7 @@
     <th>Fecha</th>
     <th>Cantidad</th>
     <th>Disponible</th>
-    <th>Acción</th>  
+    <th>Devuelto</th>  
   </tr>
   {% for reserva in reservas %}
   <tr>
@@ -26,7 +26,7 @@
     <td>{{ reserva.recurso }}</td>
     <td>{{ reserva.fecha }}</td>
     <td>{{ reserva.recurso.cantidad }}</td>
-    <td>
+    <td>&nbsp;&nbsp;
       {% if reserva.recurso.disponibilidad %}
           <i class="bi bi-check-circle text-success"></i> <!-- Icono de tic verde -->
       {% else %}
@@ -36,8 +36,10 @@
     <td>
       <!-- Boton para marcar como devuelto -->
       <form method="post" action="{% url 'marcar_devuelto' reserva.id %}" style="display: inline;">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-success btn-sm">Marcar como devuelto</button>
+        {% csrf_token %} 
+        &nbsp;&nbsp;
+        <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-check2"></i>
+        </button>
       </form>
     </td>
   </tr>

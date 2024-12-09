@@ -15,7 +15,9 @@
 
 <div class="container mt-5">
     <div class="card p-5 shadow-lg">
-        <a href="{% url 'calificaciones' %}" class="btn btn-sm btn-danger boton-cerrar">X</a>
+        <!-- Botón de cerrar -->  
+        <a href="{% url 'calificaciones' %}?{{ filtros }}" class="btn btn-sm btn-danger boton-cerrar">X</a>
+        
         <h2 class="text-center mb-4">Registrar Calificacion</h2>
         <form method="post" class="needs-validation" novalidate>
         {% csrf_token %}

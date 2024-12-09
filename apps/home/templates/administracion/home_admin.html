@@ -3,15 +3,71 @@
 
 {% block title %}Home{% endblock %}
 
+{% load static %}
 
 {% block nav %}
     {% include 'administracion/base_admin.html' %}
 {% endblock %}
 
+
+
 {% block content %}
+<div class="container mt-5 text-center">
+    <h1>¡Bienvenido a NEXA!<sup style="font-size: small; vertical-align: super;">&copy;</sup></h1>
+    <p class="lead">Gestiona tus tareas de manera eficiente y sencilla.</p>
+</div>
 
+<div class="container mt-5">
+    <div class="row">
+        <!-- Inscribir Alumno -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-person-plus fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Inscribir Alumno</h5>
+                    <p class="card-text">Registra nuevos alumnos en el sistema.</p><br>
+                    <a href="{% url 'agregar' %}" class="btn btn-primary">Ir a Inscribir Alumno</a>
+                </div>
+            </div>
+        </div>
+        <!-- Inscribir Docente -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-person-badge fs-1 text-success"></i>
+                    <h5 class="card-title mt-3">Inscribir Docente</h5>
+                    <p class="card-text">Registra nuevos docentes en el sistema.</p><br>
+                    <a href="{% url 'agregar_docente' %}" class="btn btn-success">Ir a Inscribir Docente</a>
+                </div>
+            </div>
+        </div>
+        <!-- Crear Evento en Calendario -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-calendar-plus fs-1 text-warning"></i>
+                    <h5 class="card-title mt-3">Crear Evento</h5>
+                    <p class="card-text">Agrega eventos importantes al calendario.</p>
+                    <a href="{% url 'crear_evento' %}" class="btn btn-warning">Ir a Crear Evento</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1>Bienvenido al super gestor programado por el Dream Team</h1>
+<div class="container mt-5 text-center">
+    <img src="{% static 'home/images/dream.png' %}" alt="Bienvenido" class="img-fluid" width="600">
+</div>
 
+<div class="container mt-4 text-center">
+    <p>¿Listo para empezar? Selecciona una de las opciones arriba para comenzar a utilizar el sistema.</p>
+</div>
 
+<div class="container mt-4">
+    <div class="alert alert-info">
+        ¡Hemos agregado nuevas funciones para mejorar tu experiencia!
+    </div>
+</div>
 {% endblock %}
+
+

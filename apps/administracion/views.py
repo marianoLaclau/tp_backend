@@ -143,7 +143,11 @@ def marcar_devuelto(request, reserva_id):
     reserva = get_object_or_404(Reserva, id=reserva_id)
     recurso = reserva.recurso
     recurso.cantidad += 1
-    
+
+    # Solo hay 1 salon disponible de cada uno segun figura en la lista del instituto
+    if recurso.tipo.nombre == 'Salon' and recurso.cantidad > 1:
+        recurso.cantidad = 1
+ 
     if recurso.cantidad > 0:
         recurso.disponibilidad = True
     else:

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-
+{% load static %}
 {% block title %}Home{% endblock %}
 
 
@@ -11,10 +11,64 @@
 
 {% block content %}
 
+<div class="container mt-5 text-center">
+    <h1>¡Bienvenido a NEXA!<sup style="font-size: small; vertical-align: super;">&copy;</sup></h1>
+    <p class="lead">Gestiona tus tareas de manera eficiente y sencilla.</p>
+</div>
 
-<h1>Bienvenido al super gestor programado por el Dream Team</h1>
+<div class="container mt-5">
+    <div class="row">
+        <!-- Registrar Calificaciones -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-pencil-square fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Registrar Calificaciones</h5>
+                    <p class="card-text">Registra y gestiona las calificaciones de tus estudiantes.</p>
+                    <a href="{% url 'calificaciones' %}" class="btn btn-primary">Ir a Calificaciones</a>
+                </div>
+            </div>
+        </div>
+        <!-- Gestionar Asistencias -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-clipboard-check fs-1 text-success"></i>
+                    <h5 class="card-title mt-3">Gestionar Asistencias</h5>
+                    <p class="card-text">Controla las asistencias y faltas de tus estudiantes.</p>
+                    <a href="{% url 'inasistencia' %}" class="btn btn-success">Ir a Asistencias</a>
+                </div>
+            </div>
+        </div>
+        <!-- Ver Calendario -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-calendar-event fs-1 text-warning"></i>
+                    <h5 class="card-title mt-3">Ver Calendario</h5>
+                    <p class="card-text">Consulta eventos y fechas importantes.</p> <br>
+                    <a href="{% url 'calendario' %}" class="btn btn-warning">Ir al Calendario</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="container mt-5 text-center">
+    <img src="{% static 'home/images/dream.png' %}" alt="Bienvenido" class="img-fluid" width="600">
+</div>
+
+<div class="container mt-4 text-center">
+    <p>¿Listo para empezar? Selecciona una de las opciones arriba para comenzar a utilizar el sistema.</p>
+</div>
+
+<div class="container mt-4">
+    <div class="alert alert-info">
+        <strong>Novedad:</strong> ¡Hemos agregado nuevas funciones para mejorar tu experiencia!
+    </div>
+</div>
 
 {% endblock %}
+
 
 

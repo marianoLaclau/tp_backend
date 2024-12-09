@@ -60,13 +60,13 @@
             </div>
             
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Filtrar</button>
-                <a href="{% url 'inasistencia' %}" class="btn btn-secondary">Reset</a>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-funnel"></i></button>
+                <a href="{% url 'inasistencia' %}" class="btn btn-secondary"><i class="bi bi-arrow-counterclockwise"></i></a>
             </div>
         </form>
     </div>
     <hr><br>
-    <center><h4>Nomina de alumnos:</h4></center>
+    <center><h4>Nómina de alumnos:</h4></center>
     <br>
     <table>
         <thead>
@@ -89,16 +89,39 @@
                 <td>{{ asistencia.materia }}</td>
                 <td>{{ asistencia.inasistencias }}</td>
                 <td>{{ asistencia.año_lectivo }}</td>
-                <td>&nbsp;&nbsp;&nbsp;
-                    <a href="{% url 'sumar_inasistencia' pk=asistencia.pk %}?next={{ request.get_full_path|urlencode }}" class="btn btn-sm btn-danger">+</a>
+                <td> &nbsp;&nbsp;&nbsp;
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal"
+                        data-alumno="{{ asistencia.alumno }}" data-pk="{{ asistencia.pk }}">
+                        <i class="bi bi-plus"></i>
+                    </button>
                 </td>
             </tr>
             {% empty %}
             <tr>
-            <td colspan="3">Nada para mostrar. Pruebe aplicando filtros o creando un nuevo registro.</td>
+                <td colspan="7">Nada para mostrar. Pruebe aplicando filtros o creando un nuevo registro.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
+    {% include 'docentes/modal_confirmar_inasistencia.html' %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var confirmModal = document.getElementById('confirmModal');
+            confirmModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var alumno = button.getAttribute('data-alumno');
+                var pk = button.getAttribute('data-pk');
+                
+                var modalBodyText = confirmModal.querySelector('#modal-body-text');
+                modalBodyText.textContent = 'Vas a agregar una inasistencia a ' + alumno + '. ¿Deseas confirmar esta acción?';
+                
+                var confirmBtn = confirmModal.querySelector('#modal-confirm-btn');
+                var nextUrl = encodeURIComponent('{{ request.get_full_path }}');
+                confirmBtn.href = "{% url 'sumar_inasistencia' pk=0 %}".replace('0', pk) + '?next=' + nextUrl;
+            });
+        });
+        </script>
+        
 {% endblock %}

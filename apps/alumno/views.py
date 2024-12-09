@@ -20,12 +20,16 @@ class ViewAlumno(LoginRequiredMixin,ListView):
     def get_queryset(self): 
         queryset = super().get_queryset()
         query = self.request.GET.get('buscar', '')
+        apellido = self.request.GET.get('apellido','')
         turno_id = self.request.GET.get('turno', '')
         curso_id = self.request.GET.get('curso', '')
 
         # Si el parametro pasado por url existe , almacena la respuesta
         if query:
             queryset = queryset.filter(dni__icontains=query)
+        
+        if apellido:
+            queryset = queryset.filter(apellido__icontains=apellido)
         
         if turno_id:
             queryset = queryset.filter(turno_id=turno_id)
@@ -45,6 +49,7 @@ class ViewAlumno(LoginRequiredMixin,ListView):
         context['turnos'] = Turno.objects.all()
         # Renderizamos los valores seleccionados para mantener el filtro una vez realizada la busqueda
         context['buscar'] = self.request.GET.get('buscar', '')
+        context['apellido']=self.request.GET.get('apellido','')
         context['curso_id'] = self.request.GET.get('curso', '')
         context['turno_id'] = self.request.GET.get('turno', '')
         

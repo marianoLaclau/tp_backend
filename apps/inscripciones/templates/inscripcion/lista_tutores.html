@@ -28,8 +28,8 @@
             </div>
             
             <div class="col-12">
-                <button type="submit" class="btn btn-success">Filtrar</button>
-                <a href="{% url 'tutor' %}" class="btn btn-secondary">Reset</a>
+                <button type="submit" class="btn btn-success"><i class="bi bi-funnel"></i></button>
+                <a href="{% url 'tutor' %}" class="btn btn-secondary"><i class="bi bi-arrow-counterclockwise"></i></a>
             </div>
         </form>
     </div>
@@ -62,7 +62,7 @@
                     <td>{{ tutor.alumno_fk }}</td>
                     <td>{{ tutor.vinculo }}</td>
                     <td>{{ tutor.direccion }}</td>
-                    <td>&nbsp;&nbsp;&nbsp;<a href="{% url 'editar_tutor' pk=tutor.id %}" class="btn btn-sm btn-primary">Edit</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;<a href="{% url 'editar_tutor' pk=tutor.id %}" class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i></a></td>
                 </tr>
             {% endfor %}
         </tbody>

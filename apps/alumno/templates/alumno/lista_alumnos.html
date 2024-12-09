@@ -17,12 +17,17 @@
     <hr>
     <div class="container mt-4">
         <form method="get" class="row g-3">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="buscar" class="form-label">Buscar por DNI</label>
                 <input type="text" id="buscar" name="buscar" value="{{ buscar }}" placeholder="Ingrese DNI a buscar..." class="form-control">
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <label for="apellido" class="form-label">Buscar por apellido</label>
+                <input type="text" id="apellido" name="apellido" value="{{ apellido }}" placeholder="Ingrese apellido a buscar..." class="form-control">
+            </div>
+
+            <div class="col-md-3">
                 <label for="turno" class="form-label">Turno</label>
                 <select id="turno" name="turno" class="form-select">
                     <option value="" {% if not turno_id %}selected{% endif %}>Todos</option>
@@ -32,7 +37,7 @@
                 </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="curso" class="form-label">Curso</label>
                 <select id="curso" name="curso" class="form-select">
                     <option value="" {% if not curso_id %}selected{% endif %}>Todos</option>
@@ -43,9 +48,14 @@
             </div>
             
             <div class="col-12">
-                <button type="submit" class="btn btn-success">Filtrar</button>
-                <a href="{% url 'lista_alumnos' %}" class="btn btn-secondary">Reset</a>
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-funnel"></i> <!-- Icono para "Filtrar" -->
+                </button>
+                <a href="{% url 'lista_alumnos' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-counterclockwise"></i> <!-- Icono para "Reset" -->
+                </a>
             </div>
+            
         </form>
     </div>
     <hr>
@@ -73,9 +83,15 @@
                     <td>{{ objeto.genero }}</td>
                     <td>{{ objeto.curso }}</td>
                     <td>{{ objeto.turno }}</td>
-                    <td><a href="{% url 'ver_alumno' pk=objeto.id %}" class="btn btn-success btn-sm">Ver</a> 
-                        <a href="{% url 'editar_alumno' pk=objeto.id %}" class="btn btn-success btn-sm">Edit</a>
+                    <td>
+                        <a href="{% url 'ver_alumno' pk=objeto.id %}" class="btn btn-success btn-sm">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="{% url 'editar_alumno' pk=objeto.id %}" class="btn btn-success btn-sm">
+                            <i class="bi bi-pencil"></i>
+                        </a>
                     </td>
+                    
                     
                 </tr>
             {% endfor %}

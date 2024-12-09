@@ -1,6 +1,7 @@
 from .models import Curso , PadreTutor 
-from apps.administracion.models import Docente , Turno
+from apps.administracion.models import Docente , Turno 
 from apps.alumno.models import Alumno
+from apps.inscripciones.models import Materia
 from .forms import FormAlumno ,TutorForm ,FormDocente
 from django.views.generic import CreateView , ListView , UpdateView
 from django.urls import reverse_lazy
@@ -77,6 +78,7 @@ class ViewDocente(LoginRequiredMixin,ListView):
         query = self.request.GET.get('buscar', '')
         turno_id = self.request.GET.get('turno', '')
         curso_id = self.request.GET.get('curso', '')
+        materia_id = self.request.GET.get('materia','')
 
         # Si el parametro pasado por url existe , almacena la respuesta
         if query:
@@ -87,8 +89,11 @@ class ViewDocente(LoginRequiredMixin,ListView):
         
         if curso_id:
             queryset = queryset.filter(curso_id=curso_id)
+
+        if materia_id:
+            queryset = queryset.filter(materia_id=materia_id)
         
-        queryset = queryset.select_related('turno', 'curso', 'genero') # Relacionamos los modelos para obtener filtros combinados
+        queryset = queryset.select_related('turno', 'curso', 'genero','materia') # Relacionamos los modelos para obtener filtros combinados
 
         return queryset
 
@@ -98,10 +103,12 @@ class ViewDocente(LoginRequiredMixin,ListView):
         # Para los desplegables usamos las lookup
         context['cursos'] = Curso.objects.all()
         context['turnos'] = Turno.objects.all()
+        context['materias'] = Materia.objects.all()
         # Renderizamos los valores seleccionados para mantener el filtro una vez realizada la busqueda
         context['buscar'] = self.request.GET.get('buscar', '')
         context['curso_id'] = self.request.GET.get('curso', '')
         context['turno_id'] = self.request.GET.get('turno', '')
+        context['materia_id'] = self.request.GET.get('materia','')
         
         return context
     
