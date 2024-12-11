@@ -54,6 +54,7 @@ class ReservaForm(forms.ModelForm):
         else:
             instance.recurso.cantidad = 0  # Asegurarse de que no sea negativa
 
+        
         # Actualizar disponibilidad del recurso
         instance.recurso.disponibilidad = instance.recurso.cantidad > 0
         

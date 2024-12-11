@@ -144,9 +144,12 @@ def marcar_devuelto(request, reserva_id):
     recurso = reserva.recurso
     recurso.cantidad += 1
 
-    # Solo hay 1 salon disponible de cada uno segun figura en la lista del instituto
-    if recurso.tipo.nombre == 'Salon' and recurso.cantidad > 1:
-        recurso.cantidad = 1
+    # Al marcar devuelto se mantiene el maximo definido
+    if recurso.cantidad > recurso.max_unidades:
+            recurso.cantidad = recurso.max_unidades
+            messages.success(request,'Se alcanzo el maximo disponible.')
+            return redirect('lista_reservas')
+
  
     if recurso.cantidad > 0:
         recurso.disponibilidad = True

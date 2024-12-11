@@ -1,6 +1,6 @@
-from inscripciones.models import Curso, PadreTutor
-from alumno.models import Alumno
-from administracion.models import Genero, Turno, Nacionalidad, Docente
+from apps.inscripciones.models import Curso, PadreTutor
+from apps.alumno.models import Alumno
+from apps.administracion.models import Genero, Turno, Nacionalidad, Docente
 from datetime import date
 
 alumnos = [

@@ -27,6 +27,7 @@ class Recursos(models.Model):
     ubicacion = models.ForeignKey(Ubicacion,on_delete=models.CASCADE)
     cantidad = models.IntegerField() 
     disponibilidad = models.BooleanField(default=True)
+    max_unidades = models.IntegerField()
 
     def __str__(self):
         return self.nombre.nombre

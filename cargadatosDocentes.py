@@ -1,5 +1,5 @@
-from inscripciones.models import Materia, Curso
-from administracion.models import Genero, Turno, Nacionalidad, Docente
+from apps.inscripciones.models import Materia, Curso
+from apps.administracion.models import Genero, Turno, Nacionalidad, Docente
 
 docentes = [
     (16, 'Carlos', 'Martínez', 'carlos.martinez5@mail.com', 'Calle del Mar 102', 1, '31000001', 5, '555-5678901', 1,5),

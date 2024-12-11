@@ -1,4 +1,4 @@
-from administracion.models import Turno, Genero, Nacionalidad, PersonalAdmin
+from apps.administracion.models import Turno, Genero, Nacionalidad, PersonalAdmin
 
 personal_admin = [
     ('Ana', 'Pérez', '20345001', 'Calle Ficticia 201', '555-1000001', 'ana.perez@admin.com', 1, 1, 2),
